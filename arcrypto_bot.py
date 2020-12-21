@@ -14,9 +14,9 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-CHOOSING, VIGENERE_ENCRYPT, VIGENERE_DECRYPT, TYPING_CHOICE, CAESAR_DECRYPT, CAESAR_ENCRYPT , RAIL_DECRYPT, RAIL_ENCRYPT= range(8)
+CHOOSING, VIGENERE_ENCRYPT, VIGENERE_DECRYPT, TYPING_CHOICE, CAESAR_DECRYPT, CAESAR_ENCRYPT , RAIL_DECRYPT, RAIL_ENCRYPT, DES, GOST= range(10)
 
-reply_keyboard = [['VIGENERE', 'CAESAR', 'RAIL FENCE']]
+reply_keyboard = [['VIGENERE', 'CAESAR', 'RAIL FENCE'],['DES','GOST']]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
 reply_keyboard2 = [['MENU'],['SELESAI']]
@@ -31,6 +31,12 @@ markup4 = ReplyKeyboardMarkup(reply_keyboard4, one_time_keyboard=True)
 reply_keyboard5 = [['ENKRIPSI RAIL FENCE'],['DEKRIPSI RAIL FENCE']]
 markup5 = ReplyKeyboardMarkup(reply_keyboard5, one_time_keyboard=True)
 
+reply_keyboard6 = [['ENKRIPSI DES'],['DEKRIPSI DES']]
+markup6 = ReplyKeyboardMarkup(reply_keyboard6, one_time_keyboard=True)
+
+reply_keyboard7 = [['ENKRIPSI GOST'],['DEKRIPSI GOST']]
+markup7 = ReplyKeyboardMarkup(reply_keyboard7, one_time_keyboard=True)
+
 def facts_to_str(user_data):
     facts = list()
 
@@ -43,7 +49,7 @@ def facts_to_str(user_data):
 def start(update, context):
     update.message.reply_text(
         "Halo, selamat datang di *arcrypto_bot*.\n\n"
-        "Chat Bot ini menyediakan layanan kriptografi klasik.\n"
+        "Chat Bot ini menyediakan layanan kriptografi.\n"
         "Silahkan klik /start untuk memulai, kemudian pilih jenis kriptografi yang diinginkan.",
         reply_markup=markup, parse_mode=telegram.ParseMode.MARKDOWN)
         
@@ -148,6 +154,65 @@ def regular_choice(update, context):
             reply_markup=markup2,parse_mode=telegram.ParseMode.MARKDOWN)
         return RAIL_DECRYPT
     
+    elif x == 'DES':
+        try:
+            update.message.reply_text(
+                "Anda mau melakukan enkripsi atau dekripsi?.",
+            reply_markup=markup6, parse_mode=telegram.ParseMode.MARKDOWN)
+        except:
+            update.message.reply_text(
+                "Klik *MENU* untuk kembali ke menu awal, atau klik *SELESAI* jika sudah cukup.",
+            reply_markup=markup2,parse_mode=telegram.ParseMode.MARKDOWN)
+            
+    elif x == 'ENKRIPSI DES':
+        try:
+            update.message.reply_text(
+            "layanan masih belum tersedia", reply_markup=markup2, parse_mode=telegram.ParseMode.MARKDOWN)
+            
+        except:
+            update.message.reply_text(
+                "Klik *MENU* untuk kembali ke menu awal, atau klik *SELESAI* jika sudah cukup.",
+            reply_markup=markup2,parse_mode=telegram.ParseMode.MARKDOWN)
+        
+
+    elif x == 'DEKRIPSI DES' :
+        try:
+            update.message.reply_text(
+            "layanan masih belum tersedia", reply_markup=markup2, parse_mode=telegram.ParseMode.MARKDOWN)
+        except:
+            update.message.reply_text(
+                "Klik *MENU* untuk kembali ke menu awal, atau klik *SELESAI* jika sudah cukup.",
+            reply_markup=markup2,parse_mode=telegram.ParseMode.MARKDOWN)
+        
+    elif x == 'GOST':
+        try:
+            update.message.reply_text(
+                "Anda mau melakukan enkripsi atau dekripsi?.",
+            reply_markup=markup7, parse_mode=telegram.ParseMode.MARKDOWN)
+        except:
+            update.message.reply_text(
+                "Klik *MENU* untuk kembali ke menu awal, atau klik *SELESAI* jika sudah cukup.",
+            reply_markup=markup2,parse_mode=telegram.ParseMode.MARKDOWN)
+            
+    elif x == 'ENKRIPSI GOST':
+        try:
+            update.message.reply_text(
+            "layanan masih belum tersedia", reply_markup=markup2, parse_mode=telegram.ParseMode.MARKDOWN)
+            
+        except:
+            update.message.reply_text(
+                "Klik *MENU* untuk kembali ke menu awal, atau klik *SELESAI* jika sudah cukup.",
+            reply_markup=markup2,parse_mode=telegram.ParseMode.MARKDOWN)
+        
+    elif x == 'DEKRIPSI GOST' :
+        try:
+            update.message.reply_text(
+            "layanan masih belum tersedia", reply_markup=markup2, parse_mode=telegram.ParseMode.MARKDOWN)
+        except:
+            update.message.reply_text(
+                "Klik *MENU* untuk kembali ke menu awal, atau klik *SELESAI* jika sudah cukup.",
+            reply_markup=markup2,parse_mode=telegram.ParseMode.MARKDOWN)
+
     elif x == 'SELESAI':
         update.message.reply_text(
             "Terimakasih, ketik /start untuk memulai kembali.",
@@ -303,12 +368,12 @@ def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 def main():
-    updater = Updater("token:nyadisini", use_context=True)
+    updater = Updater("tokennya:disini", use_context=True)
     dp = updater.dispatcher
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
         states={
-            CHOOSING: [MessageHandler(Filters.regex('^(VIGENERE|CAESAR|RAIL FENCE|SELESAI|ENKRIPSI VIGENERE|DEKRIPSI VIGENERE|ENKRIPSI CAESAR|DEKRIPSI CAESAR|ENKRIPSI RAIL FENCE|DEKRIPSI RAIL FENCE)$'),
+            CHOOSING: [MessageHandler(Filters.regex('^(VIGENERE|CAESAR|RAIL FENCE|DES|GOST|SELESAI|ENKRIPSI VIGENERE|DEKRIPSI VIGENERE|ENKRIPSI CAESAR|DEKRIPSI CAESAR|ENKRIPSI RAIL FENCE|DEKRIPSI RAIL FENCE|ENKRIPSI DES|DEKRIPSI DES|ENKRIPSI GOST|DEKRIPSI GOST|)$'),
                                       regular_choice),
                        MessageHandler(Filters.text,
                                       start)
