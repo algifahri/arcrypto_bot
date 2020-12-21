@@ -1,5 +1,5 @@
 # arcrypto_bot
-AR Cryptography BOT adalah chat bot telegram sederhana untuk menyelesaikan persoalan cryptography klasik.
+AR Cryptography BOT adalah chat bot telegram sederhana untuk menyelesaikan persoalan cryptography.
 
 Dibuat sebagai tugas Keamanan Data 17 TI C PCR.
 
